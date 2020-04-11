@@ -35,13 +35,6 @@ function 死亡退出() {
     click(1135, 950);
     return;
   }
-  click(1135, 950);
-  sleep(2000);
-  if (has再来一局()) {
-    log("再来一局");
-    click(1135, 950);
-    return;
-  }
   //右上角加号键
   click(2140, 95);
   sleep(1000);
@@ -194,87 +187,84 @@ function 苦肉可发动() {
   return result != null;
 }
 
+function 选将() {
+  //点击选择武将
+  click(277, 831);
+  sleep(1500);
+  click(1022, 529);
+  sleep(100);
+  click(1022, 529);
+}
+
 function 开始挂机() {
   switch (mode) {
     case 1: {
       while (true) {
-        //判断是否进入选将环节
-        if (is你的身份是主公() || is主公已选将()) {
-          status = "对局中";
-          matchesNumber++;
-          break;
-        }
-
-        if (isAt经典场()) {
-          toast("在经典场");
-        } else {
-          toast("不在经典场");
-        }
-        if (isAt大厅()) {
-          toast("在大厅");
-        } else {
-          toast("不在大厅");
-        }
-
-        if (isAt经典场() || isAt大厅()) {
-          log("匹配失败，重新开战");
-          to经典场();
-          开战();
-        }
-        sleep(1000);
-      }
-      //点击选择武将
-      click(277, 831);
-      sleep(1500);
-      click(1022, 529);
-      sleep(100);
-      click(1022, 529);
-
-      /**
-       * 进行死亡判断、防托管判断、发动自杀技能判断
-       */
-      while (true) {
-        var times = 1;
-        sleep(1000);
-        if (isDead()) {
-          log("**********死亡退出**********");
-          log(
-            "战绩:" +
-              "苦肉总次数:" +
-              skillNumber +
-              ",匹配总场次:" +
-              matchesNumber
-          );
-          log("**********再接再厉**********");
-          死亡退出();
-          break;
-        }
-        if (has取消()) {
-          //log("取消");
-          click(1475, 706);
-        } else if (has托管中()) {
-          log("取消了托管");
-          click(1400, 950);
-          continue;
-        } else if (苦肉可发动()) {
-          log("苦肉了1次");
-          skillNumber++;
-          click(1842, 960);
-        } else {
-          /**
-           * 自己没死，主公先死了
-           * 注意有两种情况，第一种是直接出来再来一局(自己失败了),第二种是出来"傲视群雄"(胜利)，此时需要点击屏幕才可继续再来一局
-           */
-          if (has再来一局()) {
-            log("再来一局");
+        while (true) {
+          //判断是否进入选将环节
+          log("判断是否进入选将环节");
+          if (is你的身份是主公() || is主公已选将()) {
+            status = "对局中";
             matchesNumber++;
-            click(1135, 950);
             break;
           }
-          //所有可执行操作都不匹配，用于排除“傲视群雄”的页面可能
-          if (has傲视群雄()) {
-            log("傲视群雄");
-            click(1135, 950);
+
+          if (isAt经典场() || isAt大厅()) {
+            to经典场();
+            log("匹配失败，重新开战");
+            开战();
+          }
+          sleep(1000);
+        }
+        选将();
+        /**
+         * 进行死亡判断、防托管判断、发动自杀技能判断
+         */
+        while (true) {
+          sleep(1000);
+          if (isDead()) {
+            log("**********死亡退出**********");
+            log(
+              "战绩:" +
+                "苦肉总次数:" +
+                skillNumber +
+                ",匹配总场次:" +
+                matchesNumber
+            );
+            log("**********再接再厉**********");
+            死亡退出();
+            break;
+          }
+          if (has取消()) {
+            //log("取消");
+            click(1475, 706);
+          } else if (has托管中()) {
+            log("取消了托管");
+            click(1400, 950);
+            continue;
+          } else if (苦肉可发动()) {
+            log("苦肉了1次");
+            skillNumber++;
+            click(1842, 960);
+          } else {
+            /**
+             * 自己没死，主公先死了
+             * 注意有两种情况，第一种是直接出来再来一局(自己失败了),第二种是出来"傲视群雄"(胜利)，此时需要点击屏幕才可继续再来一局
+             */
+            if (has再来一局()) {
+              log("再来一局");
+              matchesNumber++;
+              click(1135, 950);
+              break;
+            }
+            //所有可执行操作都不匹配，用于排除“傲视群雄”的页面可能
+            if (has傲视群雄()) {
+              log("傲视群雄");
+              click(1135, 950);
+              sleep(1500);
+              死亡退出();
+              break;
+            }
           }
         }
       }
