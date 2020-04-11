@@ -154,13 +154,13 @@ function has托管中() {
   return result != null;
 }
 
-function has傲视群雄(x) {
+function has傲视群雄() {
   var result = images.findImage(
     captureScreen(),
     images.read("./傲视群雄.jpg"),
     {
       region: [2060, 920],
-      threshold: x,
+      threshold: 0.9,
     }
   );
   return result != null;
