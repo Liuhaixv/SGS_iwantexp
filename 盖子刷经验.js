@@ -6,6 +6,8 @@
  * 初始化，申请权限
  */
 function init() {
+  //开启无障碍
+  auto.waitFor();
   //设置分辨率
   setScreenMetrics(1080, 2280);
   //申请截屏权限(横屏)
