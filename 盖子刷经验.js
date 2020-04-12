@@ -30,9 +30,11 @@ function 开战() {
  * 死亡后退出,先判断是否死亡
  */
 function 死亡退出() {
+  log("死亡退出");
   if (has再来一局()) {
     log("再来一局");
-    click(1135, 950);
+    sleep(1000);
+    click(1148, 979);
     return;
   }
   //右上角加号键
@@ -134,7 +136,7 @@ function hasBackButton() {
 function has取消() {
   var result = images.findImage(captureScreen(), images.read("./取消.jpg"), {
     region: [1374, 669],
-    threshold: 0.8,
+    threshold: 0.7,
   });
   return result != null;
 }
@@ -196,6 +198,15 @@ function 选将() {
   click(1022, 529);
 }
 
+/**
+ * 判断当前位置
+ */
+function judgeTheState() {
+  while (!isAt经典场()) {
+    to经典场();
+  }
+}
+
 function 开始挂机() {
   switch (mode) {
     case 1: {
@@ -254,13 +265,13 @@ function 开始挂机() {
             if (has再来一局()) {
               log("再来一局");
               matchesNumber++;
-              click(1135, 950);
+              click(1148, 979);
               break;
             }
             //所有可执行操作都不匹配，用于排除“傲视群雄”的页面可能
             if (has傲视群雄()) {
               log("傲视群雄");
-              click(1135, 950);
+              click(1148, 979);
               sleep(1500);
               死亡退出();
               break;
