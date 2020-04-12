@@ -175,6 +175,18 @@ function has傲视群雄() {
   return result != null;
 }
 
+function has网络不好() {
+  var result = images.findImage(
+    captureScreen(),
+    images.read("./网络不好.jpg"),
+    {
+      region: [1085, 385],
+      threshold: 0.9,
+    }
+  );
+  return result != null;
+}
+
 function has再来一局() {
   var result = images.findImage(
     captureScreen(),
@@ -275,10 +287,15 @@ function 开始挂机() {
             log("取消了托管");
             click(1400, 950);
             continue;
+          } else if (has网络不好()) {
+            log("网络不好");
+            //todo
+            continue;
           } else if (苦肉可发动()) {
             log("苦肉了1次");
             skillNumber++;
             click(1842, 960);
+            continue;
           } else {
             /**
              * 自己没死，主公先死了
