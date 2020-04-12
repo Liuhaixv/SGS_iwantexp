@@ -180,7 +180,7 @@ function has网络不好() {
     captureScreen(),
     images.read("./网络不好.jpg"),
     {
-      region: [1085, 385],
+      region: [1300, 550],
       threshold: 0.9,
     }
   );
@@ -289,7 +289,8 @@ function 开始挂机() {
             continue;
           } else if (has网络不好()) {
             log("网络不好");
-            //todo
+            sleep(1000);
+            click(1438, 600);
             continue;
           } else if (苦肉可发动()) {
             log("苦肉了1次");
