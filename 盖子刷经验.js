@@ -56,6 +56,7 @@ function 再来一局() {
       return;
     } else {
       log("未找到再来一局");
+      click(1148, 979);
       sleep(1000);
     }
   }
@@ -237,6 +238,7 @@ function 开始挂机() {
   switch (mode) {
     case 1: {
       while (true) {
+        judgeTheState();
         while (true) {
           //判断是否进入选将环节
           log("判断是否进入选将环节");
@@ -311,6 +313,7 @@ function 开始挂机() {
             //所有可执行操作都不匹配，用于排除“傲视群雄”的页面可能
             if (has傲视群雄()) {
               log("找到傲视群雄");
+              sleep(2000);
               click(1148, 979);
               sleep(2000);
               再来一局();
