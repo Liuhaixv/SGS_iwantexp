@@ -284,7 +284,7 @@ function 开始挂机() {
           }
           if (has取消()) {
             //log("取消");
-            click(1475, 706);
+            //click(1475, 706);
           } else if (has托管中()) {
             log("取消了托管");
             click(1400, 950);
@@ -294,16 +294,17 @@ function 开始挂机() {
             sleep(1000);
             click(1438, 600);
             continue;
-          } else if (苦肉可发动()) {
+          } else {
+          /*
+          else if (苦肉可发动()) {
             log("苦肉了1次");
             skillNumber++;
             click(1842, 960);
             continue;
-          } else {
+          } 
+*/
             /**
              * 自己没死，主公先死了
-             * 注意有两种情况，第一种是直接出来再来一局(自己失败了),第二种是出来"傲视群雄"(胜利)，此时需要点击屏幕才可继续再来一局
-             * ???貌似都会出来傲视群雄
              */
             if (has再来一局()) {
               matchesNumber++;
@@ -347,8 +348,12 @@ function to经典场() {
 }
 //记录匹配过的场次
 var matchesNumber = 0;
+
+/*
 //记录苦肉过的次数
 var skillNumber = 0;
+*/
+
 var status = "未知位置";
 var MODES = {
   0: "未设置",
